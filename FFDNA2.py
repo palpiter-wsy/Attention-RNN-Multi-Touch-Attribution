@@ -278,17 +278,20 @@ class FFDNA(object):
 
     def attributes(self):
         # 获得每个节点权重
-        layer = ana_mta_model.model.layers[20]
-        m_all, _, _ = ana_mta_model.all_X.shape  # 训练集m_all=17
-        ana_mta_model.s_all = np.zeros((m_all, ana_mta_model.n_s))  # 17*64
+        layer = self.model.layers[20]
+        print(self.model.layers[20])
+        m_all, _, _ = self.all_X.shape  # 训练集m_all=17
+        self.s_all = np.zeros((m_all, self.n_s))  # 17*64
         # 使用k.function提取中间层的输出，不是很懂
         # K.function()实例化一个Keras函数
-        f_f = K.function([ana_mta_model.model.input[0], ana_mta_model.model.input[1], ana_mta_model.model.input[2]],
+        f_f = K.function([self.model.input[0], self.model.input[1], self.model.input[2]],
                          [layer.output])
-        r = f_f([ana_mta_model.all_X[ana_mta_model.y == 1], ana_mta_model.s_all[ana_mta_model.y == 1],
-                 ana_mta_model.time_decay[ana_mta_model.y == 1]])[0]. \
-            reshape(ana_mta_model.all_X[ana_mta_model.y == 1].shape[0],
-                    ana_mta_model.all_X[ana_mta_model.y == 1].shape[1])
+        print(f_f([self.all_X[self.y == 1], self.s_all[self.y == 1], self.time_decay[self.y == 1]]))
+        r = f_f([self.all_X[self.y == 1], self.s_all[self.y == 1],
+                 self.time_decay[self.y == 1]])[0]. \
+            reshape(self.all_X[self.y == 1].shape[0],
+                    self.all_X[self.y == 1].shape[1])
+        print(layer.output)
         # print('r:')
         # print(r)
 
@@ -297,7 +300,7 @@ class FFDNA(object):
         att_f = {m: 0 for m in range(1, n_channels + 1)}
         att_count_f = {m: 0 for m in range(1, n_channels + 1)}
 
-        chan_used = ana_mta_model.newlines[ana_mta_model.y == 1]
+        chan_used = self.newlines[self.y == 1]
         # print('chan_used:\n')
         # print(chan_used)
         for m in range(chan_used.shape[0]):
@@ -331,12 +334,12 @@ class FFDNA(object):
         # cp_p_2 = set(map(tuple, cp_p))
         # print(list(map(list, cp_p_2)))
 
-        prob = ana_mta_model.model.predict([ana_mta_model.X_tr, ana_mta_model.s0, ana_mta_model.time_decay_tr,\
-                                            ana_mta_model.X_tr_lr.iloc[:, 0],ana_mta_model.X_tr_lr.iloc[:, 1],ana_mta_model.X_tr_lr.iloc[:, 2], ana_mta_model.X_tr_lr.iloc[:, 3]])
+        prob = self.model.predict([self.X_tr, self.s0, self.time_decay_tr,\
+                                            self.X_tr_lr.iloc[:, 0],self.X_tr_lr.iloc[:, 1],self.X_tr_lr.iloc[:, 2], self.X_tr_lr.iloc[:, 3]])
         # 训练集预测 - 找到预测概率比较高的路径
         cp_idx = sorted(range(len(prob)), key=lambda k: prob[k], reverse=True)  # 从大到小排列
         # print(cp_idx)
-        cp_p = [ana_mta_model.paths[p] for p in cp_idx[0:100]]
+        cp_p = [self.paths[p] for p in cp_idx[0:100]]
 
         cp_p_2 = set(map(tuple, cp_p))
         print(list(map(list, cp_p_2)))
