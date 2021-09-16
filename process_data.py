@@ -25,7 +25,7 @@ def most_fre(lt):
     return max(lt, key=lt.count)
 
 
-most_fre('north')
+#most_fre('north')
 
 def sca(col):
     col = [int(v) for v in col]
@@ -49,6 +49,8 @@ def process_data(data,seq_length = 20):
     cat(data,'marketing_area',"leng_area",s=',')
     cat(data,'tier',"leng_tier",s=',')
     cat(data,'customer_type',"leng_type",s=',')
+
+
     # remove those path with channels less than 3
     
     data_new = data[(data.leng_path >=3)]
@@ -58,6 +60,7 @@ def process_data(data,seq_length = 20):
     data_new.marketing_area = data_new.marketing_area.map(lambda x:most_fre(x))
     data_new.tier = data_new.tier.map(lambda x:most_fre(x))
     data_new.customer_type = data_new.customer_type.map(lambda x:most_fre(x))
+
     data_new.replace('','NA',inplace=True)#？？？？？？？？前面不是删掉了缺失行吗
 
     #输出12：所有y

@@ -1,23 +1,23 @@
 import pandas as pd
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
 import matplotlib.pyplot as plt
-from sklearn.metrics import roc_curve,confusion_matrix,f1_score, roc_auc_score
-from keras.layers import Concatenate, Dot, Input, LSTM
-from keras.layers import RepeatVector, Dense, Activation
-from keras.layers import Reshape, Dropout, Add, Subtract, Flatten, Embedding
-#from keras.optimizers import Adam
-
-from keras.models import load_model, Model
-import keras.backend as K
-import warnings
-
-import process_data
-# from h5py import Dataset, Group, File
-import h5py
-warnings.filterwarnings("ignore")
-
-from process_data import *
+# from sklearn.metrics import roc_curve,confusion_matrix,f1_score, roc_auc_score
+# from keras.layers import Concatenate, Dot, Input, LSTM
+# from keras.layers import RepeatVector, Dense, Activation
+# from keras.layers import Reshape, Dropout, Add, Subtract, Flatten, Embedding
+# #from keras.optimizers import Adam
+#
+# from keras.models import load_model, Model
+# import keras.backend as K
+# import warnings
+#
+# import process_data
+# # from h5py import Dataset, Group, File
+# import h5py
+# warnings.filterwarnings("ignore")
+#
+# from process_data import *
 
 
 
@@ -119,7 +119,23 @@ from process_data import *
 # plt.show()
 
 #测试混淆矩阵
-y_true = ["cat", "ant", "cat", "cat", "ant", "bird"]
-y_pred = ["ant", "ant", "cat", "cat", "ant", "cat"]
-print(confusion_matrix(y_true, y_pred, labels=["ant", "bird", "cat"]))
+# y_true = ["cat", "ant", "cat", "cat", "ant", "bird"]
+# y_pred = ["ant", "ant", "cat", "cat", "ant", "cat"]
+# print(confusion_matrix(y_true, y_pred, labels=["ant", "bird", "cat"]))
 
+# def sum_demo(x, y):
+#     for _ in range(2):
+#         x += 1
+#         y += 1
+#         result = x + y
+#     return result
+#
+# if __name__ == '__main__':
+#     result = sum_demo(1, 1)
+#     print(result)
+
+
+L=[['EMAIL', 'YOUTUBE', 'PROGRAMMATIC'], ['EMAIL', 'SOCIAL', 'SEM'], ['EMAIL', 'YOUTUBE', 'SOCIAL', 'EMAIL', 'PROGRAMMATIC'], ['SOCIAL', 'EMAIL', 'EMAIL', 'EMAIL', 'EMAIL', 'SEM'], ['EMAIL', 'SOCIAL', 'SOCIAL', 'EMAIL'], ['EMAIL', 'SOCIAL', 'PROGRAMMATIC'], ['EMAIL', 'YOUTUBE', 'SOCIAL'], ['SOCIAL', 'SEM', 'SOCIAL', 'EMAIL', 'PROGRAMMATIC', 'SEM'], ['EMAIL', 'SOCIAL', 'SOCIAL'], ['EMAIL', 'YOUTUBE', 'SOCIAL', 'SOCIAL', 'EMAIL', 'PROGRAMMATIC'], ['SOCIAL', 'YOUTUBE', 'EMAIL', 'PROGRAMMATIC'], ['EMAIL', 'YOUTUBE', 'EMAIL', 'EMAIL'], ['EMAIL', 'EMAIL', 'SEM'], ['EMAIL', 'SOCIAL', 'EMAIL', 'SOCIAL', 'SEM'], ['PROGRAMMATIC', 'YOUTUBE', 'SOCIAL'], ['EMAIL', 'YOUTUBE', 'SOCIAL', 'EMAIL', 'PROGRAMMATIC', 'SEM'], ['EMAIL', 'EMAIL', 'PROGRAMMATIC'], ['SOCIAL', 'EMAIL', 'EMAIL'], ['EMAIL', 'YOUTUBE', 'EMAIL', 'SOCIAL', 'SOCIAL'], ['EMAIL', 'SOCIAL', 'EMAIL', 'EMAIL', 'SEM'], ['PROGRAMMATIC', 'PROGRAMMATIC', 'EMAIL'], ['EMAIL', 'PROGRAMMATIC', 'SEM'], ['EMAIL', 'PROGRAMMATIC', 'PROGRAMMATIC'], ['EMAIL', 'SOCIAL', 'EMAIL'], ['SOCIAL', 'SEM', 'SOCIAL', 'SEM'], ['SOCIAL', 'YOUTUBE', 'PROGRAMMATIC'], ['EMAIL', 'YOUTUBE', 'EMAIL', 'EMAIL', 'EMAIL', 'SOCIAL'], ['SOCIAL', 'SOCIAL', 'EMAIL', 'PROGRAMMATIC'], ['EMAIL', 'YOUTUBE', 'PROGRAMMATIC', 'EMAIL', 'PROGRAMMATIC', 'SEM'], ['EMAIL', 'EMAIL', 'SOCIAL', 'EMAIL', 'PROGRAMMATIC'], ['SOCIAL', 'SEM', 'EMAIL', 'PROGRAMMATIC'], ['EMAIL', 'YOUTUBE', 'EMAIL', 'PROGRAMMATIC', 'SEM'], ['SOCIAL', 'EMAIL', 'EMAIL', 'PROGRAMMATIC'], ['EMAIL', 'EMAIL', 'EMAIL'], ['SOCIAL', 'EMAIL', 'SOCIAL', 'EMAIL', 'PROGRAMMATIC', 'SEM'], ['SOCIAL', 'EMAIL', 'PROGRAMMATIC'], ['EMAIL', 'YOUTUBE', 'PROGRAMMATIC', 'PROGRAMMATIC', 'EMAIL', 'PROGRAMMATIC'], ['SOCIAL', 'SEM', 'SOCIAL', 'SOCIAL', 'SOCIAL', 'SEM', 'SEM'], ['SOCIAL', 'EMAIL', 'SOCIAL']]
+A=np.array(L)
+print(type(L))
+print(A.shape)

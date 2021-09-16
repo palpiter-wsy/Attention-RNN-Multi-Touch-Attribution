@@ -179,11 +179,16 @@ class FFDNA(object):
 
         # Step 3: import embedding data for customer-ralated variables 导入客户变量相关的嵌入数据
         input_con,out_control = self.build_embedding_network()
+        # print('888888')
+        # print(input_con[0])
+        # print(input_con[1])
+        # print(input_con[2])
+        # print(input_con[3])
+
         added = Add()([out_att, out_control])#将两模块的输出直接相加add()，不是conatenate()
         out_all = Dense(1,activation='sigmoid')(added)#输出为1维向量
         # Step 4: Create model instance taking three inputs and returning the list of outputs.
-        self.model = Model([input_att,s0,t0,input_con[0],
-                      input_con[1],input_con[2],input_con[3]],out_all)
+        self.model = Model([input_att,s0,t0,input_con[0],input_con[1],input_con[2],input_con[3]],out_all)
         # print('s.shape is: ')
         # print(s.shape)
         # print('input_att.shape is :' )
@@ -356,7 +361,12 @@ if __name__ == '__main__':
     ana_mta_model = FFDNA(data_all, config)
     ana_mta_model.model()
     ana_mta_model.load_weight('FFDNA_full.h5')
-    
+
+    # print('^^^^^^^^^^')
+    # print(ana_mta_model.X_tr_lr.iloc[:,0])
+    # print(ana_mta_model.X_tr_lr.iloc[:,1])
+    # print(ana_mta_model.X_tr_lr.iloc[:,2])
+    # print(ana_mta_model.X_tr_lr.iloc[:,3])
     # 训练集预测:找到预测概率比较高的路径
     #keras predict()函数，返回值为数值，表示样本属于每一个类别的概率，可使用numpy.argmax()方法找到样本以最大概率所属的类别作为样本的预测标签。
     prob = ana_mta_model.model.predict([ana_mta_model.X_tr,ana_mta_model.s0,ana_mta_model.time_decay_tr,\
@@ -390,11 +400,22 @@ if __name__ == '__main__':
     ana_mta_model.s_all = np.zeros((m_all, ana_mta_model.n_s))#17*64
     #使用k.function提取中间层的输出，不是很懂
     #K.function()实例化一个Keras函数
+    # print(ana_mta_model.model.input[0])
+    # print(ana_mta_model.model.input[1])
+    # print(ana_mta_model.model.input[2])
+    # KerasTensor(type_spec=TensorSpec(shape=(None, 20, 6), dtype=tf.float32, name='input_path'), name='input_path',
+    #             description="created by layer 'input_path'")
+    # KerasTensor(type_spec=TensorSpec(shape=(None, 64), dtype=tf.float32, name='s0'), name='s0',
+    #             description="created by layer 's0'")
+    # KerasTensor(type_spec=TensorSpec(shape=(None, 20, 1), dtype=tf.float32, name='input_timeDecay'),
+    #             name='input_timeDecay', description="created by layer 'input_timeDecay'")
     f_f = K.function([ana_mta_model.model.input[0],ana_mta_model.model.input[1],ana_mta_model.model.input[2]], [layer.output])
+    print('*********')
+    print(layer.output)
     r=f_f([ana_mta_model.all_X[ana_mta_model.y==1],ana_mta_model.s_all[ana_mta_model.y==1],ana_mta_model.time_decay[ana_mta_model.y==1]])[0].\
         reshape(ana_mta_model.all_X[ana_mta_model.y==1].shape[0],ana_mta_model.all_X[ana_mta_model.y==1].shape[1])
-    # print('r:')
-    # print(r)
+    print('r:')
+    print(r)
     
     # att_f = {m:0 for m in range(1,6)}
     # att_count_f = {m:0 for m in range(1,6)}
@@ -412,9 +433,9 @@ if __name__ == '__main__':
     # print(att_f)
     for n in range(n_channels):
         att_f[channels[n]] = att_f.pop(n+1)
-    print('att_f    att_count_f:\n')
-    print(att_f)
-    print(att_count_f)
+    # print('att_f    att_count_f:\n')
+    # print(att_f)
+    # print(att_count_f)
         
     # att_f[m.channels[0]] = att_f.pop(1)
     # att_f[m.channels[1]] = att_f.pop(2)
