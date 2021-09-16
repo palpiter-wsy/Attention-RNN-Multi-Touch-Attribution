@@ -169,7 +169,7 @@ def process_data(data, seq_length=20):
     # print(data_lr)
     # 输出5：用户属性模块：训练集X
     X_tr_lr = data_lr.iloc[tr_idx, :]
-    # print(X_tr_lr)
+    print(X_tr_lr)
     # print(type(X_tr_lr))
     # 输出6：用户属性模块：测试集X
     X_te_lr = data_lr.iloc[te_idx, :]#iloc根据行号选
@@ -183,8 +183,8 @@ def process_data(data, seq_length=20):
         X_te_lr[['marketing_area', 'tier', 'customer_type']])
     # 输出13：用户属性模块的哪些字段
     categorical_vars = data_lr.columns[0:3]
-    # print(categorical_vars)
-    # print(X_tr_lr)
+    print(categorical_vars)
+    print('22222')
     # rint(X_te_lr)
     # print(paths)
     # print(type(paths))
